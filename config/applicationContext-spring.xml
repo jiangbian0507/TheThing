@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-4.0.xsd
+						http://www.springframework.org/schema/util classpath:/org/springframework/beans/factory/xml/spring-util-4.0.xsd
+						http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-4.0.xsd
+						http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-4.0.xsd
+						http://www.springframework.org/schema/context classpath:/org/springframework/context/config/spring-context-4.0.xsd">
+
+	<!-- 注解解析器 -->
+	<context:annotation-config />
+	
+	<!-- 扫描serviec层和dao层 -->
+	<context:component-scan base-package="com.jiang" use-default-filters="false">
+		<context:include-filter type="regex" expression="com.jiang.thething.service.*" />
+	</context:component-scan>
+	
+	<!-- 加载properties文件 -->
+	<!-- <bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:app.properties</value>
+				<value>classpath:redis.properties</value>
+			</list>
+		</property>
+	</bean> -->
+	
+
+	<!-- baseinfo数据源 -->
+	<!-- <bean id="baseDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="driverClassName" value="${datasource.driverClassName}" />
+		<property name="url" value="${datasource.url}" />
+		<property name="username" value="${datasource.username}" />
+		<property name="password" value="${datasource.password}" />
+		<property name="initialSize" value="${datasource.initialSize}" />
+		<property name="maxActive" value="${datasource.maxActive}" />
+		<property name="minIdle" value="${datasource.minIdle}" />
+		<property name="maxWait" value="${datasource.maxWait}" />
+		<property name="validationQuery" value="${datasource.validationQuery}" />
+		<property name="testOnBorrow" value="${datasource.testOnBorrow}" />
+		<property name="testOnReturn" value="${datasource.testOnReturn}" />
+		<property name="testWhileIdle" value="${datasource.testWhileIdle}" />
+		<property name="timeBetweenEvictionRunsMillis"	value="${datasource.timeBetweenEvictionRunsMillis}" />
+	</bean> -->
+
+	<!-- mybatis文件 -->
+	<!-- <bean id="paginationInterceptor" class="com.codyy.commons.page.PagePlugin">
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="baseDataSource" />
+		<property name="configLocation">
+			<value>classpath:mybatis-config.xml</value>
+		</property>
+		<property name="plugins">
+			<ref bean="paginationInterceptor" />
+		</property>
+		<property name="mapperLocations" value="classpath:com/codyy/oc/admin/mybatis/*.xml" />
+	</bean> -->
+	
+	<!-- spring扫描mapper文件 -->
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.codyy.oc.admin.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean> -->
+
+	<!-- 事务控制 -->
+	<!-- <aop:config>
+		<aop:pointcut id="txPointcut" expression="execution(* com.codyy.oc.admin.service.*.*(..)) or execution(* com.codyy.oc.admin.updatedata.service.*.*(..)) " />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config> -->
+	
+	 <!-- 配置事务管理器 -->
+	<!-- <bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="baseDataSource" />
+	</bean> -->
+
+	<!-- 需要进行事物控制的方法（其实所有的方法都进行了事物控制） -->
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="count*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="list*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="batch*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice> -->
+	
+</beans>
